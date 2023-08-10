@@ -140,5 +140,19 @@
 		return 2.2 * n_xyz;
 	}
 
+	float classic_perlin2D_fbm(FLOAT2 p){
+		float s = 0.0;
+		float m = 0.0;
+		float a = 0.5;
+	
+		for( int i=0; i<OCTAVES; i++ ){
+			s += a * classic_perlin2D(p);
+			m += a;
+			a *= 0.5;
+			p *= 2.0;
+		}
+		return s/m;
+	}
+
 	#define PERLIN
 #endif

@@ -68,5 +68,33 @@
 	float classic_simplex2D(FLOAT2 p) {
 		return classic_simplex3D(FLOAT3(p.x, p.y, 0.0));
 	}
+
+	float classic_simplex2D_fbm(FLOAT2 p){
+		float s = 0.0;
+		float m = 0.0;
+		float a = 0.5;
+	
+		for( int i=0; i<OCTAVES; i++ ){
+			s += a * classic_simplex2D(p);
+			m += a;
+			a *= 0.5;
+			p *= 2.0;
+		}
+		return s/m;
+	}
+
+	float classic_simplex3D_fbm(FLOAT3 p){
+		float s = 0.0;
+		float m = 0.0;
+		float a = 0.5;
+	
+		for( int i=0; i<OCTAVES; i++ ){
+			s += a * classic_simplex3D(p);
+			m += a;
+			a *= 0.5;
+			p *= 2.0;
+		}
+		return s/m;
+	}
     #define SIMPLEX
 #endif

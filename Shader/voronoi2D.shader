@@ -1,4 +1,4 @@
-Shader "Ellyality/Simplex2D"
+Shader "Ellyality/Voronoi2D"
 {
     Properties
     {
@@ -35,7 +35,7 @@ Shader "Ellyality/Simplex2D"
             #pragma multi_compile __ USETIME
 
             #include "UnityCG.cginc"
-            #include "./simplex.cginc"
+            #include "./voronoi.cginc"
 
             struct appdata
             {
@@ -61,12 +61,12 @@ Shader "Ellyality/Simplex2D"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                // sample the texture
 #if USETIME
-                fixed4 col = classic_simplex3D_fbm(FLOAT3(i.uv.x, i.uv.y, _Time.x * _Speed) * _Dim);
+                fixed4 col = voronoi_fbm(i.uv * _Dim, _Time.x * _Speed);
 #else
-                fixed4 col = classic_simplex3D_fbm(FLOAT3(i.uv.x, i.uv.y, 0.0) * _Dim);
+                fixed4 col = voronoi_fbm(i.uv * _Dim, 0.0);
 #endif
-
                 col.a = 1.0;
                 col = col * 0.5 + 0.5;
                 UNITY_APPLY_FOG(i.fogCoord, col);

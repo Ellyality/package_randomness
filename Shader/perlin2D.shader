@@ -5,6 +5,7 @@ Shader "Ellyality/Perlin2D"
         [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
         _Dim ("DIM", Range(1, 500)) = 100
         _SEED ("SEED", FLOAT) = 5781.127852
+        _OCTAVES("OCTAVES", integer) = 1
     }
     SubShader
     {
@@ -20,7 +21,9 @@ Shader "Ellyality/Perlin2D"
             float4 _MainTex_TexelSize;
             float _Dim;
             float _SEED;
+            int _OCTAVES;
             #define SEED _SEED
+            #define OCTAVES _OCTAVES
 
             #pragma vertex vert
             #pragma fragment frag
@@ -55,7 +58,7 @@ Shader "Ellyality/Perlin2D"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = classic_perlin2D(i.uv * _Dim);
+                fixed4 col = classic_perlin2D_fbm(i.uv * _Dim);
                 col.a = 1.0;
                 col = col * 0.5 + 0.5;
                 UNITY_APPLY_FOG(i.fogCoord, col);

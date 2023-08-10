@@ -12,8 +12,9 @@ namespace Ellyality.Randomness
         [SerializeField] float Seed = 5781.127852f;
         [SerializeField] bool UseTime = false;
         [SerializeField] float Speed = 1.0f;
+        [SerializeField][Range(1,7)] int OCTAVES = 1;
 
-        void Start()
+        void OnEnable()
         {
             Init("Ellyality/Simplex2D");
             UpdateValue();
@@ -29,6 +30,7 @@ namespace Ellyality.Randomness
             else
                 material.DisableKeyword("USETIME");
             material.SetFloat("_Speed", Speed);
+            material.SetInteger("_OCTAVES", OCTAVES);
         }
     }
 }
