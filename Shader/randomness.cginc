@@ -47,6 +47,14 @@
 		#define OCTAVES 1
 	#endif
 
+	#if !defined(GAIN)
+		#define GAIN 0.5
+	#endif
+
+	#if !defined(LACUNARITY)
+		#define LACUNARITY 2.0
+	#endif
+
 	float rand(float n) { return FRACT(sin(n) * SEED); }
 	float rand(FLOAT2 n) { return FRACT(sin(dot(n, FLOAT2(12.9898, 4.1414))) * SEED); }
 	float hash(float n) { return FRACT(sin(n) * 1e4); }

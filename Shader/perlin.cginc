@@ -144,12 +144,13 @@
 		float s = 0.0;
 		float m = 0.0;
 		float a = 0.5;
+		float f = 1.0;
 	
 		for( int i=0; i<OCTAVES; i++ ){
-			s += a * classic_perlin2D(p);
+			s += a * classic_perlin2D(p * f);
 			m += a;
-			a *= 0.5;
-			p *= 2.0;
+			f *= LACUNARITY;
+			a *= GAIN;
 		}
 		return s/m;
 	}

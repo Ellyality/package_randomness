@@ -1,13 +1,20 @@
 {
 	"name": "com.ellyality.random.core",
 	"displayName":"Ellyality Random",
-	"version": "1.0.3",
+	"version": "1.0.4",
     "author": "Elly",
     "unity": "2019.2",
     "keywords": ["random", "procedure", "generation", "noise"],
     "category": "engineering",
     "license": "LICENSE",
 	"description": "Provide shader randomness functions",
+    "samples":[
+        {
+            "displayName": "Demo Scene",
+            "description": "All the noise display scene",
+            "path": "Demo~/Scenes"
+        }
+    ],
     "dependencies": {
     }
 }

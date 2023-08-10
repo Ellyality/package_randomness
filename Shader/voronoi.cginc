@@ -22,7 +22,9 @@
 		float F1 = 8.0;
 		float F2 = 8.0;
 	
+		[unroll]
 		for( int j=-1; j<=1; j++ )
+			[unroll]
 			for( int i=-1; i<=1; i++ ){
 				FLOAT2 g = FLOAT2(i,j);
 				FLOAT2 o = hash2D( n + g );
@@ -60,12 +62,13 @@
 		float s = 0.0;
 		float m = 0.0;
 		float a = 0.5;
+		float f = 1.0;
 	
 		for( int i=0; i<OCTAVES; i++ ){
-			s += a * voronoi(p, time);
+			s += a * voronoi(p * f, time);
 			m += a;
-			a *= 0.5;
-			p *= 2.0;
+			f *= LACUNARITY;
+			a *= GAIN;
 		}
 		return s/m;
 	}
