@@ -5,6 +5,8 @@ Shader "Ellyality/Simplex2D"
         [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
         _Dim ("DIM", Range(1, 500)) = 100
         _SEED ("SEED", FLOAT) = 5781.127852
+        _Speed ("_SPEED", FLOAT) = 1.0
+        [TOGGLE(USETIME)] _USETIME ("Use Time", FLOAT) = 0
     }
     SubShader
     {
@@ -20,12 +22,14 @@ Shader "Ellyality/Simplex2D"
             float4 _MainTex_TexelSize;
             float _Dim;
             float _SEED;
+            float _Speed;
             #define SEED _SEED
 
             #pragma vertex vert
             #pragma fragment frag
             // make fog work
             #pragma multi_compile_fog
+            #pragma multi_compile __ USETIME
 
             #include "UnityCG.cginc"
             #include "./simplex.cginc"
@@ -54,7 +58,12 @@ Shader "Ellyality/Simplex2D"
 
             fixed4 frag (v2f i) : SV_Target
             {
+#if USETIME
+                fixed4 col = classic_simplex3D(FLOAT3(i.uv.x, i.uv.y, _Time.x * _Speed) * _Dim);
+#else
                 fixed4 col = classic_simplex3D(FLOAT3(i.uv.x, i.uv.y, 0.0) * _Dim);
+#endif
+
                 col.a = 1.0;
                 col = col * 0.5 + 0.5;
                 UNITY_APPLY_FOG(i.fogCoord, col);

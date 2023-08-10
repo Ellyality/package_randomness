@@ -309,7 +309,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!21 &556341740
+--- !u!21 &309768329
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -320,8 +320,10 @@ Material:
   m_Shader: {fileID: 4800000, guid: 08b6d246f7d19dd459e21d66ee02d220, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_ValidKeywords:
+  - USETIME
+  m_InvalidKeywords:
+  - _UseTime
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -340,6 +342,9 @@ Material:
     m_Floats:
     - _Dim: 57
     - _SEED: 5781.128
+    - _SPEED: 1
+    - _Speed: 0.1
+    - _USETIME: 0
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!1 &880802085
@@ -392,7 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 556341740}
+  m_Material: {fileID: 309768329}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -432,6 +437,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dim: 57
   Seed: 5781.128
+  UseTime: 1
+  Speed: 0.1
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
