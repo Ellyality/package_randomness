@@ -6,7 +6,7 @@ Shader "Ellyality/Simplex2D"
         _Dim ("DIM", Range(1, 500)) = 100
         _SEED ("SEED", FLOAT) = 5781.127852
         _Speed ("_SPEED", FLOAT) = 1.0
-        [TOGGLE(USETIME)] _USETIME ("Use Time", FLOAT) = 0
+        [Toggle(USETIME)] _USETIME ("Use Time", FLOAT) = 0
     }
     SubShader
     {
