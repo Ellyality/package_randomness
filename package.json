@@ -1,0 +1,11 @@
+{
+	"name": "com.ellyality.random.core",
+	"displayName":"Ellyality Random",
+	"version": "1.0.0",
+    "unity": "2019.2",
+    "keywords": ["random", "procedure", "generation", "noise"],
+    "category": "engineering",
+	"description": "Provide shader randomness functions",
+    "dependencies": {
+    }
+}

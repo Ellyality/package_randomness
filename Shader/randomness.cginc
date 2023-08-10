@@ -17,6 +17,7 @@
 		#define FLOAT4X4 mat4
 		#define LERP mix
 		#define FRACT fract
+		#define MOD mod
 	#else
 		#define INLINE inline
 		#define INT2 int2
@@ -35,11 +36,15 @@
 		#define FLOAT4X4 float4x4
 		#define LERP lerp
 		#define FRACT frac
+		#define MOD fmod
+	#endif
+	
+	#if !defined(SEED)
+		#define SEED 43758.5453123
 	#endif
 
-
-	float rand(float n) { return FRACT(sin(n) * 43758.5453123); }
-	float rand(FLOAT2 n) { return FRACT(sin(dot(n, FLOAT2(12.9898, 4.1414))) * 43758.5453); }
+	float rand(float n) { return FRACT(sin(n) * SEED); }
+	float rand(FLOAT2 n) { return FRACT(sin(dot(n, FLOAT2(12.9898, 4.1414))) * SEED); }
 	float hash(float n) { return FRACT(sin(n) * 1e4); }
 	float hash(FLOAT2 p) { return FRACT(1e4 * sin(17.0 * p.x + p.y * 0.1) * (0.1 + abs(sin(p.y * 13.0 + p.x)))); }
 	float mod289(float x){return x - floor(x * (1.0 / 289.0)) * 289.0;}

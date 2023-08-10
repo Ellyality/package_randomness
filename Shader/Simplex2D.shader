@@ -1,4 +1,4 @@
-Shader "Ellyality/Perlin2D"
+Shader "Ellyality/Simplex2D"
 {
     Properties
     {
@@ -28,7 +28,7 @@ Shader "Ellyality/Perlin2D"
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
-            #include "./perlin.cginc"
+            #include "./simplex.cginc"
 
             struct appdata
             {
@@ -54,8 +54,7 @@ Shader "Ellyality/Perlin2D"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-                fixed4 col = classic_perlin2D(i.uv * _Dim);
+                fixed4 col = classic_simplex3D(FLOAT3(i.uv.x, i.uv.y, 0.0) * _Dim);
                 col.a = 1.0;
                 col = col * 0.5 + 0.5;
                 UNITY_APPLY_FOG(i.fogCoord, col);
