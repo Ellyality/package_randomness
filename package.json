@@ -1,7 +1,7 @@
 {
 	"name": "com.ellyality.random.core",
 	"displayName":"Ellyality Random",
-	"version": "1.0.6",
+	"version": "1.0.7",
     "author": "Elly",
     "unity": "2019.2",
     "keywords": ["random", "procedure", "generation", "noise"],
@@ -12,7 +12,7 @@
         {
             "displayName": "Demo Scene",
             "description": "All the noise display scene",
-            "path": "Demo~/Scenes"
+            "path": "Demo/Scenes"
         }
     ],
     "dependencies": {

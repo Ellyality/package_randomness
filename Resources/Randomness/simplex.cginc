@@ -4,13 +4,13 @@
 	#endif
 
 	FLOAT3 random3(FLOAT3 c) {
-		float j = 4096.0*sin(dot(c,FLOAT3(17.0, 59.4, 15.0)));
+		float j = 4096.0*sin(dot(c,FLOAT3(17.0, 59.4 * SEED, 15.0)));
 		FLOAT3 r;
-		r.z = FRACT(SEED*j);
+		r.z = FRACT(0.1031*j);
 		j *= .125;
-		r.x = FRACT(SEED*j);
+		r.x = FRACT(0.11369*j);
 		j *= .125;
-		r.y = FRACT(SEED*j);
+		r.y = FRACT(0.13787*j);
 		return r-0.5;
 	}
 

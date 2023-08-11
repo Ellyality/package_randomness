@@ -7,7 +7,7 @@ int _OCTAVES;
 #define SEED _SEED
 #define OCTAVES _OCTAVES
 
-#include "Shader/simplex.cginc"
+#include "simplex.cginc"
 
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
