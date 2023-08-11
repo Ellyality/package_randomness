@@ -1,7 +1,7 @@
 {
 	"name": "com.ellyality.random.core",
 	"displayName":"Ellyality Random",
-	"version": "1.0.5",
+	"version": "1.0.6",
     "author": "Elly",
     "unity": "2019.2",
     "keywords": ["random", "procedure", "generation", "noise"],
