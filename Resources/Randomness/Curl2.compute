@@ -1,0 +1,25 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+RWTexture2D<float4> Noise;
+float FlowSpeed;
+
+#include "randomness.cginc"
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+int ResultWidth;
+int ResultHeight;
+RWTexture2D<float4> Result;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+    FLOAT2 uv = FLOAT2(float(id.x) / float(ResultWidth), float(id.y) / float(ResultHeight));
+    FLOAT2 flowVector = Noise[id.xy].xy * 2.0 - FLOAT2(1.0, 1.0);
+    flowVector *= FlowSpeed;
+    FLOAT2 place = uv - flowVector;
+    FLOAT4 historyColor = Result[int2(place * FLOAT2(ResultWidth, ResultHeight))];
+    Result[id.xy] = historyColor;
+}

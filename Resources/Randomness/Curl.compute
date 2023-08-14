@@ -1,0 +1,35 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+float _Dim;
+float _SEED;
+float _Time;
+int _OCTAVES;
+float _NoiseMultipler;
+#define SEED _SEED
+#define OCTAVES _OCTAVES
+
+#include "curl.cginc"
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+int ResultWidth;
+int ResultHeight;
+RWTexture2D<float4> Result;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+    float ip;
+	float tValue = modf(_Time * 0.5, ip);
+	tValue = MOD(ip, 2.0) > 0.0 ? tValue : 1.0 - tValue;
+    tValue = smoothstep(0.0, 1.0, tValue);
+
+    FLOAT2 uv = FLOAT2(float(id.x) / float(ResultWidth), float(id.y) / float(ResultHeight));
+    FLOAT2 curl = ComputeCurl(uv * _Dim, (1.0/ResultWidth), tValue, _NoiseMultipler);
+    float noiseValue = InterpolatedNoise(uv, tValue);
+    curl = curl * 0.5 + FLOAT2(0.5, 0.5);
+    noiseValue = noiseValue * 0.5 + 0.5;
+    Result[id.xy] = FLOAT4(curl.x, curl.y, noiseValue, 1.0);
+}
