@@ -1,13 +1,14 @@
 {
 	"name": "com.ellyality.random.core",
 	"displayName":"Ellyality Random",
-	"version": "1.0.7",
+	"version": "1.0.8",
     "author": "Elly",
     "unity": "2019.2",
     "keywords": ["random", "procedure", "generation", "noise"],
     "category": "engineering",
     "license": "LICENSE",
-	"description": "Provide shader randomness functions",
+	"description": "Provide shader randomness functions.\nIncluding white noise, perlin, simplex, voronoi, normal noise, height map noise, curl noise",
+    "documentationUrl": "https://github.com/Ellyality/package_randomness/blob/main/README.md",
     "samples":[
         {
             "displayName": "Demo Scene",
