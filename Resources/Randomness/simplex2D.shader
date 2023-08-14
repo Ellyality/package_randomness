@@ -1,9 +1,13 @@
-Shader "Ellyality/Perlin2D"
+Shader "Ellyality/Simplex2D"
 {
     Properties
     {
-        [HideInspector]
-        _MainTex ("Texture", 2D) = "white" {}
+        [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
+        _Dim ("DIM", Range(1, 500)) = 100
+        _SEED ("SEED", FLOAT) = 5781.127852
+        _Speed ("_SPEED", FLOAT) = 1.0
+        _OCTAVES("OCTAVES", integer) = 1
+        [Toggle(USETIME)] _USETIME ("Use Time", FLOAT) = 0
     }
     SubShader
     {
@@ -13,13 +17,25 @@ Shader "Ellyality/Perlin2D"
         Pass
         {
             CGPROGRAM
+
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            float4 _MainTex_TexelSize;
+            float _Dim;
+            float _SEED;
+            float _Speed;
+            int _OCTAVES;
+            #define SEED _SEED
+            #define OCTAVES _OCTAVES
+
             #pragma vertex vert
             #pragma fragment frag
             // make fog work
             #pragma multi_compile_fog
+            #pragma multi_compile __ USETIME
 
             #include "UnityCG.cginc"
-            #include "./perlin.cginc"
+            #include "./simplex.cginc"
 
             struct appdata
             {
@@ -34,9 +50,6 @@ Shader "Ellyality/Perlin2D"
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-
             v2f vert (appdata v)
             {
                 v2f o;
@@ -48,11 +61,16 @@ Shader "Ellyality/Perlin2D"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-                fixed4 col = perlin(i.uv, 5000., _Time.x);
-                // apply fog
+#if USETIME
+                fixed4 col = classic_simplex3D_fbm(FLOAT3(i.uv.x, i.uv.y, _Time.x * _Speed) * _Dim);
+#else
+                fixed4 col = classic_simplex3D_fbm(FLOAT3(i.uv.x, i.uv.y, 0.0) * _Dim);
+#endif
+
+                col.a = 1.0;
+                col = col * 0.5 + 0.5;
                 UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+                return pow(col, 2.2 / 1.0);
             }
             ENDCG
         }
